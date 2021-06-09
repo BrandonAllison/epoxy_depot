@@ -16,8 +16,8 @@ const ThankYou = () => {
  
     return(
         <>
-        <h2 style={{color:'white'}}>Thank you for using Barista!</h2>
-         <Button onClick={() => backhome()}>Log Back In</Button>
+        <h2 style={{color:'white'}}>Thank you for using Epoxy Depot Onboard</h2>
+         {/* <Button onClick={() => backhome()}>Log Back In</Button> */}
         </>
     )
 }

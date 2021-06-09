@@ -17,103 +17,144 @@ const Customer_Management = () => {
        business_phone:''
     });
 
-    const [clients, setClients] = useState([]);
 
-    useEffect(() => {
-        console.log('useEffect Hook!!!');
-        let db = firebase.firestore();
-        db.collection('clients').orderBy('business_name', 'asc').onSnapshot(snapshot => {
-          console.log('Firebase Snap!');
-          setClients(snapshot.docs.map(doc => {
-            return {
-              key: doc.id,
-              phone : doc.data().business_phone,
-              name: doc.data().business_name,
-              logo: doc.data().logo_url,
-              contact: doc.data().contact_name
-            }
-          }))
-        })
-        console.log(clients)
-    
-      }, []);
+    // const handleSubmit = async(e)=>{ 
+    //     e.preventDefault();
+    //     let db = firebase.firestore();
+    //     db.collection("clients").doc().set({
+    //       business_name: form.business_name,
+    //       business_phone: form.business_phone,
+    //       contact_name: form.contact_name,
+    //       logo_url: form.business_logo,
+    //       location_name: form.location_name,
+    //       address:form.address
 
-
-
-    const handleSubmit = async(e)=>{ 
-        e.preventDefault();
-        let db = firebase.firestore();
-        db.collection("clients").doc().set({
-          business_name: form.business_name,
-          business_phone: form.business_phone,
-          contact_name: form.contact_name,
-          logo_url: form.business_logo
-      })
-      .then(function() {
-        store.addNotification({
-            title: 'Customer Registration',
-            message: 'New Customer Added Successfuly',
-            type: 'default',                         // 'default', 'success', 'info', 'warning'
-            container: 'top-left',                // where to position the notifications
-            animationIn: ["animated", "fadeIn"],     // animate.css classes that's applied
-            animationOut: ["animated", "fadeOut"],   // animate.css classes that's applied
-            dismiss: {
-              duration: 3000
-            }
-          })
-        document.form.reset(); 
-          console.log("Document successfully written!");
+    //   })
+    //   .then(function() {
+    //     document.form.reset(); 
+    //       console.log("Document successfully written!");
         
-      })
-      .catch(function(error) {
-          console.error("Error writing document: ", error);
-      });
-    }
+    //   })
+    //   .catch(function(error) {
+    //       console.error("Error writing document: ", error);
+    //   });
+    // }
 
-   
+   //This Form Needs handlesubmit added on submit
 
     return(
         <div style={{display:'flex', flexDirection:'column', alignItems:'center'}}>
-            {/* <Form className="form" name="form" style={{background:'rgba(245,245,245,.9)', padding: '20px 30px 40px 30px', borderRadius: '8px', fontWeight:'bold', width:'80%', marginTop:'25px'}} onSubmit={handleSubmit}>
-                <h2>Add New Customer</h2>
+            <Form className="form" name="form" style={{background:'white', padding: '20px 30px 40px 30px', borderRadius: '8px', fontWeight:'bold', width:'80%', marginTop:'50px'}} >
+                <h2>Step 1 : General Information</h2>
                 <Form.Group controlId="formBasicBName">
                     <Form.Label>Business Name</Form.Label>
                     <Form.Control type="text" placeholder="Business Name" style={{border:'2px solid #001430'}} onChange={(e) => setForm({...form, business_name: e.target.value})} />
                 </Form.Group>
+                
                 <Form.Group controlId="formBasicBPhone">
                     <Form.Label>Business Phone</Form.Label>
                     <Form.Control type="text" placeholder="Business Phone" style={{border:'2px solid #001430'}} onChange={(e) => setForm({...form, business_phone: e.target.value})} />
                 </Form.Group>
+
                 <Form.Group controlId="formBasicContact">
                     <Form.Label>Contact Name</Form.Label>
                     <Form.Control type="text" placeholder="Contact Name" style={{border:'2px solid #001430'}} onChange={(e) => setForm({...form, contact_name: e.target.value})} />
                 </Form.Group>
-                <Form.Group controlId="formBasicLogo">
+
+                
+                <Form.Group controlId="formBasicAddress">
+                    <Form.Label>Address</Form.Label>
+                    <Form.Control type="text" placeholder="Address" style={{border:'2px solid #001430'}} onChange={(e) => setForm({...form, address: e.target.value})} />
+                </Form.Group>
+
+                <Form.Group controlId="formBasicCity">
+                    <Form.Label>City</Form.Label>
+                    <Form.Control type="text" placeholder="City" style={{border:'2px solid #001430'}} onChange={(e) => setForm({...form, address: e.target.value})} />
+                </Form.Group>
+
+                <Form.Group controlId="formBasicState">
+                <Form.Label>State</Form.Label>
+                <Form.Control name="state" as="select" size="1" style={{border:'1px solid black', padding:'5px', borderRadius:'5px'}}>
+                <option value="AL">Alabama</option>
+                    <option value="AK">Alaska</option>
+                    <option value="AZ">Arizona</option>
+                    <option value="AR">Arkansas</option>
+                    <option value="CA">California</option>
+                    <option value="CO">Colorado</option>
+                    <option value="CT">Connecticut</option>
+                    <option value="DE">Delaware</option>
+                    <option value="DC">Dist of Columbia</option>
+                    <option value="FL">Florida</option>
+                    <option value="GA">Georgia</option>
+                    <option value="HI">Hawaii</option>
+                    <option value="ID">Idaho</option>
+                    <option value="IL">Illinois</option>
+                    <option value="IN">Indiana</option>
+                    <option value="IA">Iowa</option>
+                    <option value="KS">Kansas</option>
+                    <option value="KY">Kentucky</option>
+                    <option value="LA">Louisiana</option>
+                    <option value="ME">Maine</option>
+                    <option value="MD">Maryland</option>
+                    <option value="MA">Massachusetts</option>
+                    <option value="MI">Michigan</option>
+                    <option value="MN">Minnesota</option>
+                    <option value="MS">Mississippi</option>
+                    <option value="MO">Missouri</option>
+                    <option value="MT">Montana</option>
+                    <option value="NE">Nebraska</option>
+                    <option value="NV">Nevada</option>
+                    <option value="NH">New Hampshire</option>
+                    <option value="NJ">New Jersey</option>
+                    <option value="NM">New Mexico</option>
+                    <option value="NY">New York</option>
+                    <option value="NC">North Carolina</option>
+                    <option value="ND">North Dakota</option>
+                    <option value="OH">Ohio</option>
+                    <option value="OK">Oklahoma</option>
+                    <option value="OR">Oregon</option>
+                    <option value="PA">Pennsylvania</option>
+                    <option value="RI">Rhode Island</option>
+                    <option value="SC">South Carolina</option>
+                    <option value="SD">South Dakota</option>
+                    <option value="TN">Tennessee</option>
+                    <option value="TX">Texas</option>
+                    <option value="UT">Utah</option>
+                    <option value="VT">Vermont</option>
+                    <option value="VA">Virginia</option>
+                    <option value="WA">Washington</option>
+                    <option value="WV">West Virginia</option>
+                    <option value="WI">Wisconsin</option>
+                    <option value="WY">Wyoming</option>
+                </Form.Control>
+                </Form.Group>
+
+                <Form.Group controlId="formBasicCity">
+                    <Form.Label>Zip</Form.Label>
+                    <Form.Control type="number" placeholder="Zip" style={{border:'2px solid #001430'}} onChange={(e) => setForm({...form, address: e.target.value})} />
+                </Form.Group>
+
+                {/* <Form.Group controlId="formBasicAddress">
+                    <Form.Label>Location Name</Form.Label>
+                    <Form.Control type="text" placeholder="Location Name" style={{border:'2px solid #001430'}} onChange={(e) => setForm({...form, location_name: e.target.value})} />
+                </Form.Group> */}
+                {/* <Form.Group controlId="formBasicLogo">
                     <Form.Label>Logo URL</Form.Label>
                     <Form.Control type="text" placeholder="Logo Url" style={{border:'2px solid #001430'}} onChange={(e) => setForm({...form, business_logo: e.target.value})} />
-                </Form.Group>
-                <Button className="button" type="submit">Submit</Button>
-            </Form>
+                </Form.Group> */}
 
-            <div style={{marginTop:'50px', padding:'10px', width:'80%',  display:'flex', justifyContent:'space-evenly', flexWrap:'wrap'}}>
-        {
-          clients.map(client => (
-            <Link to='/customerInfo' style={{textDecoration:'none', color:'black'}}> 
-             
-              <div className="cards" style={{borderRadius:'5px', width:'250px', height:'300px', margin:'20px', display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', padding:'15px'}}>
-              <Image src={client.logo} width="100" height="100" style={{borderRadius:'50%', marginBottom:'15px', border:'1px solid black', padding:'10px'}}/>
-              <p style={{fontWeight:'bold', fontSize:'10px'}}>{client.name}</p>
-              <p style={{fontSize:'11px'}}>{client.contact}</p>
-              <p style={{fontSize:'11px'}}>{client.phone} </p>
-              </div>
-              </Link>
-          
-              
-          ))
-        }
-      </div> */}
-           
-           
+                {/* <Link to="/customers">
+                    <Button className="button"  style={{marginRight:'15px'}}>
+                        Back
+                    </Button>
+                </Link> */}
+                <Link to="/sales">
+                    <Button className="button"  style={{marginRight:'15px'}}>
+                        Next
+                    </Button>
+                </Link>
+                
+            </Form>
 
         </div>
 

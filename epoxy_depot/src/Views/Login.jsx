@@ -24,7 +24,7 @@ const LoginView = () => {
     return(
         <>
         
-            <Form className="form" style={{background:'white', padding: '20px 30px 40px 30px', borderRadius: '0px', fontWeight:'bold'}} onSubmit={handleSubmit}>
+            <Form className="form" style={{background:'white', padding: '20px 30px 40px 30px', borderRadius: '0px', fontWeight:'bold', borderRadius:'5px', border: '2px solid #093B76'}} onSubmit={handleSubmit}>
                 <Image src={Logo} style={{height:'250px'}} />
                 <Form.Group controlId="formBasicEmail">
                     <Form.Label>Store Email</Form.Label>

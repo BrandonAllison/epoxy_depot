@@ -1,6 +1,6 @@
 .App {
   text-align: center;
-  /* background-image: url('Assets/glo-epoxy-table.png'); */
+  background-image: url('Assets/bg.png');
   background-size:100% 100%;
   height:100vh;
   display:flex;
@@ -10,6 +10,7 @@
   
 
 }
+
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
