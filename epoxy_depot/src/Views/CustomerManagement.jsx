@@ -1,5 +1,5 @@
-import {useState, useEffect} from 'react'
-import { Button, Form, Image } from 'react-bootstrap';
+import {useState, useRef, useEffect} from 'react'
+import { Button, OverlayTrigger, Form, Tooltip, Image } from 'react-bootstrap';
 import {Link} from 'react-router-dom'
 import firebase from 'firebase/app';
 import "firebase/auth";
@@ -16,6 +16,9 @@ const Customer_Management = () => {
        business_name:'',
        business_phone:''
     });
+
+    const [show, setShow] = useState(false);
+    const target = useRef(null);
 
 
     // const handleSubmit = async(e)=>{ 
@@ -46,11 +49,12 @@ const Customer_Management = () => {
         <div style={{display:'flex', flexDirection:'column', alignItems:'center'}}>
             <Form className="form" name="form" style={{background:'white', padding: '20px 30px 40px 30px', borderRadius: '8px', fontWeight:'bold', width:'80%', marginTop:'50px'}} >
                 <h2>Step 1 : General Information</h2>
+                <p><i>Please fill out to the best of your ability.  If you need help, please scroll down to the more information section.</i></p>
                 <Form.Group controlId="formBasicBName">
-                    <Form.Label>Business Name</Form.Label>
+                    <Form.Label>Location Name</Form.Label>
                     <Form.Control type="text" placeholder="Business Name" style={{border:'2px solid #001430'}} onChange={(e) => setForm({...form, business_name: e.target.value})} />
                 </Form.Group>
-                
+
                 <Form.Group controlId="formBasicBPhone">
                     <Form.Label>Business Phone</Form.Label>
                     <Form.Control type="text" placeholder="Business Phone" style={{border:'2px solid #001430'}} onChange={(e) => setForm({...form, business_phone: e.target.value})} />
@@ -155,6 +159,13 @@ const Customer_Management = () => {
                 </Link>
                 
             </Form>
+
+            <div style={{display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'space-around', marginTop:'50px', marginBottom:'50px', width:'80%'}}>
+            <div className="form" style={{padding:'20px', marginTop:'50px'}} >
+                <h6 style={{textAlign:'center'}}>More Information</h6>
+           <p><b>Location Name</b> - should begin with Epoxy Depot and then end with your location.  <i>ie: Epoxy Depot Pittsburgh</i></p> 
+         </div>
+        </div>
 
         </div>
 
